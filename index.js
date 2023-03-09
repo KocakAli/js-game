@@ -27,7 +27,7 @@ canvas.height = 576;
 
 ctx.fillRect(0, 0, 1024, 576);
 
-const gravity = 0.075;
+const gravity = 0.7;
 
 
 
@@ -38,6 +38,18 @@ const background = new Sprite({
     },
     imageSrc: './background.png',
 })
+
+const shop = new Sprite({
+    pos:{
+        x: 600,
+        y:130,
+    },
+    imageSrc: './shop.png',
+    scale: 2.75,
+    framesMax : 6,
+})
+
+
 const player = new Fighter({
     pos: {
         x: 200,
@@ -111,7 +123,9 @@ function animate() {
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    background.update()
+    
+    background.update();
+    shop.update();
     player.update();
     enemy.update();
 
@@ -122,12 +136,12 @@ function animate() {
     // player movement
     if (keys.a.pressed && player.lastKey === 'a') {
         if (player.position.x > 0) {
-            player.velocity.x = -3;
+            player.velocity.x = -5;
         }
 
     } else if (keys.d.pressed && player.lastKey === 'd') {
         if (player.position.x < canvas.width - player.width) {
-            player.velocity.x = 3;
+            player.velocity.x = 5;
         }
 
 
@@ -136,12 +150,12 @@ function animate() {
     // enemy movement
     if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
         if (enemy.position.x > 0) {
-            enemy.velocity.x = -3;
+            enemy.velocity.x = -5;
         }
 
     } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
         if (enemy.position.x < canvas.width - enemy.width) {
-            enemy.velocity.x = 3;
+            enemy.velocity.x = 5;
         }
 
     }
@@ -197,7 +211,7 @@ window.addEventListener('keydown', function (e) {
         player.lastKey = 'a';
     }
     if (e.key === 'w' && player.canJump) {
-        player.velocity.y = -6;
+        player.velocity.y = -15;
         player.canJump = false;
 
     }
@@ -214,7 +228,7 @@ window.addEventListener('keydown', function (e) {
         enemy.lastKey = 'ArrowLeft';
     }
     if (e.key === 'ArrowUp' && enemy.canJump) {
-        enemy.velocity.y = -6;
+        enemy.velocity.y = -15;
         enemy.canJump = false;
     }
     if (e.key === 'Enter') {
