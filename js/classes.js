@@ -1,5 +1,5 @@
 class Sprite {
-    constructor({ pos, imageSrc, scale=1,framesMax = 1}) {
+    constructor({ pos, imageSrc, scale=1,framesMax = 1,framesHold=10}) {
         this.position = pos;
         this.width = 50;
         this.height = 150;
@@ -9,7 +9,7 @@ class Sprite {
         this.framesMax = framesMax;
         this.framesCurrent = 0;
         this.framesElapsed = 0;
-        this.framesHold=10;
+        this.framesHold= framesHold;
 
 
 
@@ -41,8 +41,18 @@ class Sprite {
 
 }
 
-class Fighter {
-    constructor({ pos, vel, color = 'red', offset }) {
+class Fighter extends Sprite{
+    constructor({ pos, vel, color = 'red', offset,scale=1,framesMax = 1,framesHold=10 }) {
+        super({
+            pos,
+            image,
+            scale,
+            framesMax,
+            framesCurrent,
+            framesElapsed,
+            framesHold
+
+        });
         this.position = pos;
         this.velocity = vel;
         this.width = 50;
@@ -66,21 +76,6 @@ class Fighter {
 
     }
 
-    draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-
-        if (this.isAttacking) {
-            ctx.fillStyle = 'white';
-            ctx.fillRect(
-                this.attackBox.position.x,
-                this.attackBox.position.y + 10,
-                this.attackBox.width,
-                this.attackBox.height);
-        }
-
-    }
 
 
     update() {

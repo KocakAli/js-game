@@ -126,6 +126,7 @@ function animate() {
     
     background.update();
     shop.update();
+    
     player.update();
     enemy.update();
 
